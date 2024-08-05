@@ -5,7 +5,7 @@ function reverseString(s){
 }
 
 function compareEdge(a,b){
-    return a==reverseString(b);
+    return a==reverseString(b)
 }
 
 class Tile{
@@ -57,5 +57,35 @@ class Tile{
         }
         
         return new Tile(newImg , newEdges);
+    }
+
+    flip(direction) {
+        const w = this.img.width;
+        const h = this.img.height;
+        const newImg = createGraphics(w, h);
+        newImg.imageMode(CENTER);
+        newImg.translate(w / 2, h / 2);
+
+        if (direction === 1) {
+            // Horizontal Flip
+            newImg.scale(-1, 1); // Flip horizontally
+        } else if (direction === -1) {
+            // Vertical Flip
+            newImg.scale(1, -1); // Flip vertically
         }
+
+        newImg.image(this.img, 0, 0);
+
+        const newEdges = [];
+        const len = this.edges.length;
+        for (let i = 0; i < len; i++) {
+            if (direction === 1) {
+                newEdges[i] = this.edges[(len - i) % len]; // Horizontal flip
+            } else if (direction === -1) {
+                newEdges[i] = this.edges[(i + 2) % len]; // Vertical flip
+            }
+        }
+        
+        return new Tile(newImg, newEdges);
+    }
 }
