@@ -1,7 +1,7 @@
 const tiles = [];
 const tileImages = [];
 let grid = [];
-let DIM = 100;
+let DIM = 20;
 
 // const BLANK = 0;
 // const VERTICAL = 1;
@@ -13,35 +13,68 @@ let DIM = 100;
 // const DL = 7;
 
 function preload() {
-    const path = "tiles";
-    tileImages[0] = loadImage(`${path}/1.png`);
-    tileImages[1] = loadImage(`${path}/2.png`);
-    tileImages[2] = loadImage(`${path}/3.png`);
-    tileImages[3] = loadImage(`${path}/4.png`);
-    tileImages[4] = loadImage(`${path}/5.png`);
-    tileImages[5] = loadImage(`${path}/6.png`);
+    const path = 'tiles/maps';
+  for (let i = 0; i < 21; i++) {
+    tileImages[i] = loadImage(`${path}/${i}.png`);
+  }
 }
 
 function setup() {
     createCanvas(700, 700);
     //Loaded and created the tiles
-    tiles[0] = new Tile(tileImages[0], [0, 0, 0, 0]);//Blank
-    tiles[1] = new Tile(tileImages[1], [1, 0, 1, 0]);//Vertical
-    tiles[2] = tiles[1].rotate(1);//Horizontal
-    tiles[3] = new Tile(tileImages[2], [0, 0, 1, 1]);//DL
-    tiles[4] = tiles[3].rotate(1);//UL
-    tiles[5] = tiles[3].rotate(2);//UR
-    tiles[6] = tiles[3].rotate(3);//DR
-    tiles[7] = new Tile(tileImages[3], [1, 1, 1, 1]);//CROSS
-    tiles[8] = new Tile(tileImages[4], [1, 1, 0, 1]);//TUP
-    tiles[9] = tiles[8].rotate(1);//TRIGHT
-    tiles[10] = tiles[8].rotate(2);//TDOWN
-    tiles[11] = tiles[8].rotate(3);//TLEFT
-    tiles[12] = new Tile(tileImages[5], [1, 0, 0, 0]);//END UP
-    tiles[13] = tiles[12].rotate(1);//END RIGHT
-    tiles[14] = tiles[12].rotate(2);//END DOWN
-    tiles[15] = tiles[12].rotate(3);//END LEFT
     
+    /*
+    Path = tiles/circuit 13 images 0 - 13
+    tiles[0] = new Tile(tileImages[0], ["AAA", "AAA", "AAA", "AAA"]);
+    tiles[1] = new Tile(tileImages[1], ["BBB", "BBB", "BBB", "BBB"]);
+    tiles[2] = new Tile(tileImages[2], ["BBB", "BCB", "BBB", "BBB"]);
+    tiles[3] = new Tile(tileImages[3], ["BBB", "BDB", "BBB", "BDB"]);
+    tiles[4] = new Tile(tileImages[6], ["BBB", "BCB", "BBB", "BCB"]);
+    tiles[5] = new Tile(tileImages[7], ["BDB", "BCB", "BDB", "BCB"]);
+    tiles[6] = new Tile(tileImages[8], ["BDB", "BBB", "BCB", "BBB"]);
+    tiles[7] = new Tile(tileImages[9], ["BCB", "BCB", "BBB", "BCB"]);
+    tiles[8] = new Tile(tileImages[10], ["BCB", "BCB", "BCB", "BCB"]);
+    tiles[9] = new Tile(tileImages[11], ["BCB", "BCB", "BBB", "BBB"]);
+    tiles[10] = new Tile(tileImages[12], ["BBB", "BCB", "BBB", "BCB"]);
+    tiles[11] = new Tile(tileImages[4], ["ABB", "BCB", "BBA", "AAA"]);
+    tiles[12] = new Tile(tileImages[5], ["ABB", "BBB", "BBB", "BBA"]);
+    
+    for(let i=2; i<14; i++){
+        for(let j=0; j<4; j++){
+            tiles.push(tiles[i].rotate(j));
+        }
+    }
+
+    */
+
+    tiles[0] = new Tile(tileImages[0], ["MMM","MMM","MMM","MMM"]);
+    tiles[1] = new Tile(tileImages[1], ["MMM","MMM","MMM","MMM"]);
+    tiles[2] = new Tile(tileImages[2], ["MMM","MMM","MMM","MWM"]);
+    tiles[3] = new Tile(tileImages[3], ["MMM","MWM","MMM","MWM"]);
+    tiles[4] = new Tile(tileImages[4], ["MWW","MWM","MWW","WWW"]);
+    tiles[5] = new Tile(tileImages[5], ["WWW","WWW","WWW","WWW"]);
+    tiles[6] = new Tile(tileImages[6], ["WWS","SSS","SWW","WWW"]);
+    tiles[7] = new Tile(tileImages[7], ["WWS","SSS","SSW","WWW"]);
+    tiles[8] = new Tile(tileImages[8], ["SSS","SSS","SSW","WWS"]);
+    tiles[9] = new Tile(tileImages[9], ["SSS","SSS","SSS","SSS"]);
+    tiles[10] = new Tile(tileImages[10], ["SSG","GGG","GSS","SSS"]);
+    tiles[11] = new Tile(tileImages[11], ["SSG","GGG","GGG","GSS"]);
+    tiles[12] = new Tile(tileImages[12], ["GGG","GGG","GGG","GGG"]);
+    tiles[13] = new Tile(tileImages[13], ["GGG","GGG","GGG","GGG"]);
+    tiles[14] = new Tile(tileImages[14], ["GGG","GWG","GGG","GWG"]);
+    tiles[15] = new Tile(tileImages[15], ["GGG","GWG","GGG","GWG"]);
+    tiles[16] = new Tile(tileImages[16], ["GGM","MGM","MGG","GWG"]);
+    tiles[17] = new Tile(tileImages[17], ["GWG","GWG","GGG","GWG"]);
+    tiles[18] = new Tile(tileImages[18], ["SGG","GWG","GSS","SWS"]);
+    tiles[19] = new Tile(tileImages[19], ["SSW","WWW","WSS","SWS"]);
+    tiles[20] = new Tile(tileImages[20], ["SSG","GGM","MSS","SSS"]);
+    
+    for(let i=2; i<23; i++){
+        for(let j=0; j<4; j++){
+            tiles.push(tiles[i].rotate(j));
+        }
+    }
+
     //generating adjucency rule
     for(let i = 0; i < tiles.length; i++) {
         const tile = tiles[i];
@@ -49,20 +82,13 @@ function setup() {
     }
 
     //cell in everyspot on grid
-    for (let i = 0; i < DIM * DIM; i++) {
-        grid[i] = new Cell(tiles.length)
-    }
+    startOver();
 
     noLoop();  // Ensure no looping from the beginning
 }
 
 function mousePressed() {
-    // Reinitialize the grid
-    grid = [];
-    for (let i = 0; i < DIM * DIM; i++) {
-        grid[i] = new Cell(tiles.length);
-    }
-
+    startOver();
     // Ensure drawing continues until all cells are filled
     loop();
 }
@@ -72,6 +98,13 @@ function checkValid(arr, valid) {
         if (!valid.includes(arr[i])) {
             arr.splice(i, 1);
         }
+    }
+}
+
+function startOver(){
+    grid = [];
+    for (let i = 0; i < DIM * DIM; i++) {
+        grid[i] = new Cell(tiles.length);
     }
 }
 
@@ -120,6 +153,10 @@ function draw() {
     const cell = random(gridCopy);
     cell.collapsed = true;
     const pick = random(cell.options);
+    if(pick == undefined){
+        startOver();
+        return;
+    }
     cell.options = [pick];
 
 
